@@ -4,20 +4,38 @@
 
 {% block body %}
 
+
+
 <section class="principal">
+    {% with messages=get_flashed_messages() %}
+    {% if messages %}
+    {% for msg in messages %}
+    <span style="color: red;">{{msg}}</span>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <form action="/login" method="post">
         <h1>Login</h1>
 
         <div>
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
             <label for="">Email</label>
-            <input type="email" placeholder="Email">
+            {{form.email(placeholder='Email')}}
         </div>
 
         <div>
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
             <label for="">Password</label>
-            <input type="password" placeholder="Password">
+            {{form.password(placeholder='Password')}}
         </div>
 
+
+
+        {{form.hidden_tag()}}
 
         <button type="submit">Iniciar Sesión</button>
     </form>

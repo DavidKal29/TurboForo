@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: blue;
-  padding: 10px;
+  padding: 10px 60px;
 }
 #cabecera img {
   width: 6%;
@@ -31,7 +31,11 @@
 #cabecera .botones #registrar {
   background-color: green;
 }
-#cabecera .botones a {
+#cabecera a {
   color: white;
   text-decoration: none;
+}
+#cabecera i {
+  font-size: 30px;
+  color: white;
 }/*# sourceMappingURL=style.css.map */

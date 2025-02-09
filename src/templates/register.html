@@ -4,37 +4,63 @@
 
 {% block body %}
 
+
+
 <section class="principal">
-    <form action="/login" method="post">
-        <h1>Login</h1>
+    {% with messages=get_flashed_messages() %}
+    {% if messages %}
+    {% for msg in messages %}
+    <span style="color: red;">{{msg}}</span>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="/register" method="post">
+        <h1>Register</h1>
 
         <div>
-            <label for="">Register</label>
-            <input type="text" placeholder="Username">
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Username</label>
+            {{form.username(placeholder='Username')}}
         </div>
 
         <div>
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
             <label for="">Email</label>
-            <input type="email" placeholder="Email">
+            {{form.email(placeholder='Email')}}
         </div>
 
         <div>
+            {% for error in form.image.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
             <label for="">Image</label>
-            <input type="text" placeholder="Url de la imagen">
+            {{form.image(placeholder='Image')}}
         </div>
 
         <div>
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
             <label for="">Password</label>
-            <input type="password" placeholder="Password">
+            {{form.password(placeholder='Password')}}
         </div>
 
         <div>
+            {% for error in form.confirm.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
             <label for="">Repeat Password</label>
-            <input type="password" placeholder="Password">
+            {{form.confirm(placeholder='Confirm password')}}
         </div>
 
 
-        <button type="submit">Iniciar Sesión</button>
+        {{form.hidden_tag()}}
+
+        <button type="submit">Registrarme</button>
     </form>
 </section>
 

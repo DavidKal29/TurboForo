@@ -1,4 +1,4 @@
-from entities.User import User
+from models.entities.User import User
 from werkzeug.security import generate_password_hash
 
 class ModelUser():
@@ -42,8 +42,25 @@ class ModelUser():
             db.connection.commit()
 
             user=User(0,'',user.email,'',user.password)
-            cls.login(db,user)
 
+            sql='SELECT * FROM users WHERE email=%s'
+            values=(user.email,)
+
+            cursor.execute(sql,values)
+            row=cursor.fetchone()
+
+            if row:
+                id=row[0]
+                username=row[1]
+                email=row[2]
+                image=row[3]
+                password=User.checkPassword(row[4],user.password)
+
+                logged_user=User(id,username,email,image,password)
+
+                return logged_user
+            else:
+                return None
 
         except Exception as error:
             print(error)
