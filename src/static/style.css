@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: blue;
+  padding: 10px;
+}
+#cabecera img {
+  width: 6%;
+}
+#cabecera .botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#cabecera .botones button {
+  border-radius: 5px;
+  padding: 8px 16px;
+  background-color: red;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+#cabecera .botones #registrar {
+  background-color: green;
+}
+#cabecera .botones a {
+  color: white;
+  text-decoration: none;
+}/*# sourceMappingURL=style.css.map */

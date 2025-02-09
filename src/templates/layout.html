@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block title %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    
+    <header id="cabecera">
+        <img src="https://png.pngtree.com/png-clipart/20231118/original/pngtree-forum-icon-www-photo-png-image_13614247.png" alt="">
+
+        <div class="botones">
+            <button id="registrar"><a href="/register">Registrarme</a></button>
+            <button id="iniciar"><a href="/login">Iniciar sesión</a></button>
+        </div>
+    </header>
 
     {% block body %} 
     
