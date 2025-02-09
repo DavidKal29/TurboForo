@@ -103,4 +103,50 @@ body {
 }
 #principal #perfil #botones #logout {
   background-color: #123456;
+}
+
+form {
+  width: 45vh;
+  padding: 20px;
+  height: 70vh;
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-left: 75vh;
+  gap: 20px;
+}
+form div {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+}
+form div label {
+  font-weight: bold;
+}
+form div input {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #e0e0e0;
+}
+form button {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #123456;
+  color: white;
+}
+form span {
+  font-weight: bold;
+}
+form span a {
+  text-decoration: none;
+  color: #123456;
 }/*# sourceMappingURL=style.css.map */
