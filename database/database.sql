@@ -12,11 +12,11 @@ CREATE TABLE users (
 
 CREATE TABLE datos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    bio VARCHAR(255),
     hilos INT UNSIGNED,
     mensajes INT UNSIGNED,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_user INT UNSIGNED,
-    FOREIGN KEY (id_user) REFERENCES users(id),
+    FOREIGN KEY (id_user) REFERENCES users(id)
 );
 
 CREATE TABLE hilos (

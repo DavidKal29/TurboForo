@@ -66,8 +66,8 @@ body {
   gap: 30px;
 }
 #principal #perfil #perfil-img {
-  width: 15vh;
-  height: 15vh;
+  width: 35vh;
+  height: 35vh;
   border-radius: 50%;
 }
 #principal #perfil #perfil-img img {

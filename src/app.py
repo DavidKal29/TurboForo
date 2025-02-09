@@ -95,8 +95,14 @@ def register():
 @app.route('/perfil',methods=['GET','POST'])
 @login_required
 def perfil():
-    return render_template('perfil.html')
+    cursor=db.connection.cursor()
+    print('Id:',current_user.id)
+    cursor.execute('SELECT * FROM datos WHERE id_user=%s',(current_user.id,))
+    row=cursor.fetchone()
+    print('El row:',row)
 
+    datos={'hilos':row[1],'mensajes':row[2],'fecha':row[3]}
+    return render_template('perfil.html',datos=datos)
 @app.route('/logout')
 @login_required
 def logout():

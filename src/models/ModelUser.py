@@ -58,6 +58,10 @@ class ModelUser():
 
                 logged_user=User(id,username,email,image,password)
 
+                cursor.execute('INSERT INTO datos (hilos,mensajes,id_user) VALUES (%s,%s,%s)',(0,0,id))
+                db.connection.commit()
+
+
                 return logged_user
             else:
                 return None
