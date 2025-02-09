@@ -4,12 +4,17 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #e0e0e0;
+}
+
 #cabecera {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: blue;
+  background-color: white;
   padding: 10px 60px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 #cabecera img {
   width: 6%;
@@ -37,5 +42,65 @@
 }
 #cabecera i {
   font-size: 30px;
+  color: #e0e0e0;
+}
+
+#principal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+#principal #perfil {
+  margin-top: 50px;
+  width: 120vh;
+  height: 60vh;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 100px;
+  gap: 30px;
+}
+#principal #perfil #perfil-img {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+}
+#principal #perfil #perfil-img img {
+  width: 100%;
+  border-radius: 50%;
+}
+#principal #perfil #info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+#principal #perfil #info h3 {
+  font-size: 20px;
+}
+#principal #perfil #botones {
+  display: flex;
+  gap: 10px;
+}
+#principal #perfil #botones button {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+#principal #perfil #botones button a {
+  text-decoration: none;
   color: white;
+}
+#principal #perfil #botones #edit {
+  background-color: #123456;
+}
+#principal #perfil #botones #logout {
+  background-color: #123456;
 }/*# sourceMappingURL=style.css.map */

@@ -9,6 +9,16 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
+
+CREATE TABLE datos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    bio VARCHAR(255),
+    hilos INT UNSIGNED,
+    mensajes INT UNSIGNED,
+    id_user INT UNSIGNED,
+    FOREIGN KEY (id_user) REFERENCES users(id),
+);
+
 CREATE TABLE hilos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL UNIQUE,

@@ -4,8 +4,30 @@
 
 {% block body %}
 
+<section id="principal">
+    <div id="perfil">
+        <h1>{{current_user.username}}</h1>
+        <div id="perfil-img">
+            <img src="{{current_user.image}}" alt="">
+        </div>
+        <div id="info">
+            <h3>correo@gmail.com</h3>
+            <h3>Hilos 41</h3>
+            <h3>Mensajes 234</h3>
+        </div>
 
-<h1>Perfil</h1>
+        <span>Resgistrado desde 19-12-2025 12:56:09</span>
+
+        <div id="botones">
+            <button id="logout"><a href="/logout">Cerrar Sesión</a></button>
+            <button id="edit"><a href="/perfil/edit">Editar</a></button>
+        </div>
+
+        
+    </div>
+    
+</section>
+
 
 
 {% endblock %}
