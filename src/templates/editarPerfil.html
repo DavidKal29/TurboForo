@@ -1,0 +1,51 @@
+{% extends './layout.html' %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block body %}
+
+<section class="principal">
+    
+    <form action="/perfil/edit/{{current_user.id}}" method="post">
+        <h1>Edit</h1>
+        {% with messages=get_flashed_messages() %}
+        {% if messages %}
+        {% for msg in messages %}
+        <span style="color: red;">{{msg}}</span>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div>
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Email</label>
+            {{form.email(placeholder='Email')}}
+        </div>
+
+        <div>
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Username</label>
+            {{form.username(placeholder='Image')}}
+        </div>
+
+        <div>
+            {% for error in form.image.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Image</label>
+            {{form.image(placeholder='Image')}}
+        </div>
+
+
+
+        {{form.hidden_tag()}}
+
+        <button type="submit">Editar</button>
+    </form>
+</section>
+
+{% endblock %}

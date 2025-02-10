@@ -8,19 +8,26 @@
     <div id="perfil">
         <h1>{{current_user.username}}</h1>
         <div id="perfil-img">
-            <img src="{{current_user.image}}" alt="">
+            <img src="{{ current_user.image }}" alt="Imagen de perfil" 
+            onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png';">
+       
         </div>
         <div id="info">
-            <h3>correo@gmail.com</h3>
+            <h3>{{current_user.email}}</h3>
             <h3>Hilos {{datos.hilos}}</h3>
             <h3>Mensajes {{datos.mensajes}}</h3>
         </div>
 
-        <span>Resgistrado desde {{datos.fecha}}</span>
+        <span>Registrado desde {{datos.fecha}}</span>
 
         <div id="botones">
             <button id="logout"><a href="/logout">Cerrar Sesión</a></button>
-            <button id="edit"><a href="/perfil/edit">Editar</a></button>
+            <button id="edit"><a href="/perfil/edit/{{current_user.id}}">Editar</a></button>
+        </div>
+
+        <div id="botones">
+            <button id="logout"><a href="/perfil/crearHilo">Crear Hilo</a></button>
+            <button id="edit"><a href="/perfil/verHilos">Ver mis hilos</a></button>
         </div>
 
         

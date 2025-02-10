@@ -1,0 +1,52 @@
+{% extends './layout.html' %}
+
+{% block title %}Crear Hilo{% endblock %}
+
+{% block body %}
+
+<section class="principal">
+    
+    <form action="/perfil/crearHilo" method="post">
+        <h1>Edit</h1>
+        {% with messages=get_flashed_messages() %}
+        {% if messages %}
+        {% for msg in messages %}
+        <span style="color: red;">{{msg}}</span>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div>
+            {% for error in form.titulo.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Titulo</label>
+            {{form.titulo(placeholder='Titulo')}}
+        </div>
+
+        <div>
+            {% for error in form.mensaje.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Mensaje</label>
+            {{form.mensaje(placeholder='Mensaje')}}
+        </div>
+
+        <div>
+            {% for error in form.categoria.errors %}
+            <span style="color: red;">{{error}}</span>
+            {% endfor %}
+            <label for="">Categoria</label>
+            {{form.categoria(id="select")}}
+        </div>
+
+
+
+        {{form.hidden_tag()}}
+
+        <button type="submit">Crear Hilo</button>
+        <button id="edit"><a href="/perfil/verHilos">Ver mis hilos</a></button>
+    </form>
+</section>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from flask import Flask,render_template,redirect,request,url_for,flash
 from flask_login import login_user,logout_user,login_required,LoginManager,current_user
 from config import config
 from flask_mysqldb import MySQL
-from forms import Persona,Inicar
+from forms import Persona,Inicar,Perfil,Hilo
 from models.entities.User import User
 from models.ModelUser import ModelUser
 
@@ -92,6 +92,11 @@ def register():
             return render_template('register.html',form=form)
 
 
+
+
+
+
+
 @app.route('/perfil',methods=['GET','POST'])
 @login_required
 def perfil():
@@ -103,6 +108,119 @@ def perfil():
 
     datos={'hilos':row[1],'mensajes':row[2],'fecha':row[3]}
     return render_template('perfil.html',datos=datos)
+
+
+
+@app.route('/perfil/edit/<id>',methods=['GET','POST'])
+@login_required
+def editar_perfil(id):
+    if request.method=='GET':
+        form=Perfil()
+
+        form.username.data=current_user.username
+        form.email.data=current_user.email
+        form.image.data=current_user.image
+
+
+
+        return render_template('editarPerfil.html',form=form)
+    elif request.method=='POST':
+        username=request.form.get('username')
+        email=request.form.get('email')
+        image=request.form.get('image')
+
+        print(username,email,image)
+
+        cursor=db.connection.cursor()
+        values=(username,email,image,current_user.id)
+
+        cursor.execute('UPDATE users SET username=%s,email=%s,image=%s WHERE id=%s',values)
+        db.connection.commit()
+
+        return redirect(url_for('perfil'))
+
+
+
+@app.route('/perfil/crearHilo',methods=['GET','POST'])
+def crearHilo():
+    form=Hilo()
+    if request.method=='GET':
+        return render_template('crearHilo.html',form=form)
+    elif request.method=='POST' and form.validate():
+        titulo=request.form.get('titulo')
+        mensaje=request.form.get('mensaje')
+        categoria=request.form.get('categoria')
+
+        print(titulo,mensaje,categoria)
+
+        try:
+            cursor=db.connection.cursor()
+            cursor.execute('INSERT INTO hilos (titulo,id_user,categoria,mensajes) VALUES (%s,%s,%s,%s)',(titulo,current_user.id,categoria,1))
+            db.connection.commit()
+
+            cursor.execute('SELECT id from hilos WHERE id_user=%s  ORDER BY id DESC LIMIT 1',(current_user.id,))
+            id_hilo=cursor.fetchone()
+            print(id_hilo[0])
+
+            cursor.execute('INSERT INTO mensajes (contenido,id_user,id_hilo) VALUES (%s,%s,%s)',(mensaje,current_user.id,id_hilo))
+            db.connection.commit()
+
+            cursor.execute('UPDATE datos SET hilos=hilos+1, mensajes=mensajes+1 WHERE id_user=%s',(current_user.id,))
+            db.connection.commit()
+
+            flash('Añadido con éxito')
+        except Exception as Error:
+            print(Error)
+            flash('error')
+
+        return render_template('crearHilo.html',form=form)
+
+
+
+@app.route('/perfil/verHilos',methods=['GET'])
+def verHilos():
+    cursor=db.connection.cursor()
+    cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos WHERE id_user=%s',(current_user.id,))
+    rows=cursor.fetchall()
+
+    hilos=[]
+    for row in rows:
+        hilo={'id':row[0],'titulo':row[1],'categoria':row[2],'mensajes':row[3]}
+        hilos.append(hilo)
+    print(hilos)
+    
+    return render_template('verHilos.html',hilos=hilos)
+
+@app.route('/perfil/delete/<id>')
+def deletear_hilo(id):
+    cursor=db.connection.cursor()
+
+    cursor.execute('SELECT COUNT(*) FROM mensajes WHERE id_user=%s and id_hilo=%s',(current_user.id,id))
+    cantidad=cursor.fetchone()
+    print('Tuple',cantidad)
+    cantidad=cantidad[0]
+    print('Cantidad:',cantidad)
+
+    cursor.execute('UPDATE datos SET mensajes=mensajes-%s, hilos=hilos-%s WHERE id_user=%s',(cantidad,cantidad,current_user.id))
+
+    cursor.execute('DELETE FROM mensajes WHERE id_hilo=%s',(id,))
+    cursor.execute('DELETE FROM hilos WHERE id=%s',(id,))
+    
+
+    db.connection.commit()
+
+    return redirect(url_for('verHilos'))
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/logout')
 @login_required
 def logout():

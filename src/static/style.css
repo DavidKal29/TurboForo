@@ -52,6 +52,63 @@ body {
   flex-direction: column;
   padding: 10px;
 }
+#principal #hilera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+#principal #hilera #cabecera-hilos {
+  border: 1px solid;
+  width: 100vh;
+  height: 50px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#principal #hilera #cabecera-hilos span {
+  font-size: 25px;
+}
+#principal #hilera #cabecera-hilos i {
+  font-size: 20px;
+}
+#principal #hilera .hilo {
+  border: 1px solid;
+  width: 100vh;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+#principal #sinHilos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 35vh;
+  gap: 10px;
+}
+#principal #sinHilos h1 {
+  font-size: 40px;
+}
+#principal #sinHilos button {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #123456;
+}
+#principal #sinHilos button a {
+  text-decoration: none;
+  color: white;
+}
 #principal #perfil {
   margin-top: 50px;
   width: 120vh;
@@ -66,9 +123,10 @@ body {
   gap: 30px;
 }
 #principal #perfil #perfil-img {
-  width: 35vh;
-  height: 35vh;
+  width: 20vh;
+  height: 20vh;
   border-radius: 50%;
+  border: 3px solid #123456;
 }
 #principal #perfil #perfil-img img {
   width: 100%;
@@ -134,6 +192,12 @@ form div input {
   border: none;
   background-color: #e0e0e0;
 }
+form div select {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #e0e0e0;
+}
 form button {
   border-radius: 5px;
   padding: 8px 16px;
@@ -142,6 +206,10 @@ form button {
   cursor: pointer;
   background-color: #123456;
   color: white;
+}
+form button a {
+  color: white;
+  text-decoration: none;
 }
 form span {
   font-weight: bold;

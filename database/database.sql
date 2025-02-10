@@ -5,7 +5,7 @@ CREATE TABLE users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(30) NOT NULL UNIQUE,
     email VARCHAR(150) NOT NULL UNIQUE,
-    image VARCHAR(255) NOT NULL DEFAULT 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+    image VARCHAR(255) NOT NULL DEFAULT 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
     password VARCHAR(255) NOT NULL
 );
 
@@ -21,16 +21,20 @@ CREATE TABLE datos (
 
 CREATE TABLE hilos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(150) NOT NULL UNIQUE,
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE participantes (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    contenido VARCHAR(255) NOT NULL,
+    titulo VARCHAR(150) NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_user INT UNSIGNED,
     FOREIGN KEY (id_user) REFERENCES users(id),
+    categoria VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE mensajes(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    contenido VARCHAR(255) NOT NULL,
+    id_user INT UNSIGNED,
+    FOREIGN KEY (id_user) REFERENCES users(id),
     id_hilo INT UNSIGNED,
-    FOREIGN KEY (id_hilo) REFERENCES hilos(id)
+    FOREIGN KEY (id_hilo) REFERENCES hilos(id),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
 );

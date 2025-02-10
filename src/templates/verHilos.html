@@ -1,0 +1,37 @@
+{% extends './layout.html' %}
+
+{% block title %}Mis hilos{% endblock %}
+
+{% block body %}
+
+<section id="principal">
+    {% if hilos %}
+    <div id="hilera">
+        <div id="cabecera-hilos">
+            <i class="fa-brands fa-forumbee"></i>
+            <span>Hilos</span>
+            
+        </div>
+    
+        {% for hilo in hilos %}
+        <div class="hilo">
+            <span>{{hilo['categoria'].capitalize()}}</span>
+            <span>{{hilo['titulo'].upper()}}</span>
+            <span>Mensajes:{{hilo['mensajes']}} </span>
+            <a href="/perfil/delete/{{hilo['id']}}"><button>Eliminar</button></a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div id="sinHilos">
+        <h1>No tienes hilos creados</h1>
+        <button><a href="/perfil/crearHilo">Crear hilos</a></button>
+    </div>
+    {% endif %}
+
+   
+    
+    
+</section>
+
+{% endblock %}
