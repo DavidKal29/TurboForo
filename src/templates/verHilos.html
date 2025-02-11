@@ -16,8 +16,8 @@
         {% for hilo in hilos %}
         <div class="hilo">
             <span>{{hilo['categoria'].capitalize()}}</span>
-            <span>{{hilo['titulo'].upper()}}</span>
-            <span>Mensajes:{{hilo['mensajes']}} </span>
+            <a href="/foro/{{hilo['id']}}">{{hilo['titulo'].upper()}}</a>
+            <span>Mensajes:{{hilo['mensajes']}}</span>
             <a href="/perfil/delete/{{hilo['id']}}"><button>Eliminar</button></a>
         </div>
         {% endfor %}

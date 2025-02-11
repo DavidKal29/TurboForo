@@ -130,6 +130,7 @@ body {
 }
 #principal #perfil #perfil-img img {
   width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 #principal #perfil #info {
@@ -217,4 +218,60 @@ form span {
 form span a {
   text-decoration: none;
   color: #123456;
+}
+
+#cabeza_foro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+  gap: 20px;
+}
+#cabeza_foro #foro_cabecera {
+  background-color: white;
+  width: 100vh;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+#cabeza_foro .foro_mensaje {
+  background-color: white;
+  width: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  border-radius: 5px;
+  flex-direction: column;
+  padding: 20px;
+  gap: 30px;
+}
+#cabeza_foro .foro_mensaje .cabeza {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 350px;
+}
+#cabeza_foro .foro_mensaje .cabeza .info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+#cabeza_foro .foro_mensaje .cabeza .info .imagen {
+  width: 7vh;
+  height: 7vh;
+}
+#cabeza_foro .foro_mensaje .cabeza .info .imagen img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+#cabeza_foro .foro_mensaje .cabeza .info h4 {
+  font-size: 20px;
+}
+#cabeza_foro .foro_mensaje hr {
+  width: 100%;
 }/*# sourceMappingURL=style.css.map */

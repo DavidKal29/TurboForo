@@ -1,0 +1,38 @@
+{% extends './layout.html' %}
+
+{% block title %}{{titulo}}{% endblock %}
+
+{% block body %}
+
+<section class="principal">
+    <div id="cabeza_foro">
+        <div id="foro_cabecera">
+            <h1>{{datos_hilo['titulo']}}</h1>
+        </div>
+
+        {% for msg in mensajes %}
+        <div class="foro_mensaje">
+            <div class="cabeza">
+                <div class="info">
+                    <div class="imagen">
+                        <img src="{{msg['image']}}" alt="">
+                    </div>
+                    <h4>{{msg['username']}}</h4>
+                </div>
+
+                <div class="fecha">
+                    <span>Fecha: {{msg['fecha']}}</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="cuerpo">
+                <h3>{{msg['contenido']}} </h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

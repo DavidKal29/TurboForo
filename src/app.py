@@ -125,19 +125,24 @@ def editar_perfil(id):
 
         return render_template('editarPerfil.html',form=form)
     elif request.method=='POST':
-        username=request.form.get('username')
-        email=request.form.get('email')
-        image=request.form.get('image')
+        try:
+            username=request.form.get('username')
+            email=request.form.get('email')
+            image=request.form.get('image')
 
-        print(username,email,image)
+            print(username,email,image)
 
-        cursor=db.connection.cursor()
-        values=(username,email,image,current_user.id)
+            cursor=db.connection.cursor()
+            values=(username,email,image,id)
 
-        cursor.execute('UPDATE users SET username=%s,email=%s,image=%s WHERE id=%s',values)
-        db.connection.commit()
+            cursor.execute('UPDATE users SET username=%s,email=%s,image=%s WHERE id=%s',values)
+            db.connection.commit()
+            return redirect(url_for('perfil'))
+        except:
+            flash('Username or Email exists')
+            return redirect(url_for('perfil'))
 
-        return redirect(url_for('perfil'))
+        
 
 
 
@@ -210,6 +215,43 @@ def deletear_hilo(id):
     db.connection.commit()
 
     return redirect(url_for('verHilos'))
+
+@app.route('/foro/<id>')
+def foroVista(id):
+    cursor=db.connection.cursor()
+    cursor.execute('SELECT titulo,fecha FROM hilos WHERE id=%s',(id,))
+    data=cursor.fetchone()
+    
+    datos_hilo={'titulo':data[0],'fecha':data[1]}
+    print(datos_hilo)
+
+
+
+    cursor.execute('SELECT contenido,id_user,fecha FROM mensajes WHERE id_hilo=%s',(id,))
+    data=cursor.fetchall()
+
+    mensajes=[]
+    for dato in data:
+        contenido=dato[0]
+        id_user=dato[1]
+        fecha=dato[2]
+
+        cursor.execute('SELECT username, image FROM users WHERE id=%s',(id_user,))
+        row=cursor.fetchone()
+        username=row[0]
+        image=row[1]
+
+        objeto={'contenido':contenido,'fecha':fecha,'username':username,'image':image}
+
+        mensajes.append(objeto)
+    
+    print(mensajes)
+
+
+
+
+
+    return render_template('foroVista.html',datos_hilo=datos_hilo,mensajes=mensajes)
 
 
 
