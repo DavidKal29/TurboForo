@@ -1,28 +1,25 @@
 from flask import Flask,render_template,redirect,request,url_for,flash
 from flask_login import login_user,logout_user,login_required,LoginManager,current_user
-from config import config
+#from config import config
 from flask_mysqldb import MySQL
 from forms import Persona,Inicar,Perfil,Hilo,Mensaje
 from models.entities.User import User
 from models.ModelUser import ModelUser
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 app=Flask(__name__)
+app.config['MYSQL_HOST']=os.getenv('MYSQL_HOST_CLEVER_CLOUD')
+app.config['MYSQL_USER']=os.getenv('MYSQL_USER_CLEVER_CLOUD')
+app.config['MYSQL_PASSWORD']=os.getenv('MYSQL_PASSWORD_CLEVER_CLOUD')
+app.config['MYSQL_DB']=os.getenv('MYSQL_DB_CLEVER_CLOUD')
+app.secret_key=os.getenv('SECRET_KEY')
 
 
 db=MySQL(app)
-
-
-with app.app_context():
-    try:
-        connection = db.connection
-        cursor = connection.cursor()
-        cursor.execute('SELECT 1')
-        print("Conexión a la base de datos exitosa")
-        cursor.close()
-    except Exception as e:
-        print("Error de conexión a la base de datos:", e)
-
 
 
 
@@ -373,7 +370,7 @@ def status_401(error):
 
 
 if __name__=='__main__':
-    app.config.from_object(config['production'])
+    #app.config.from_object(config['production'])
     app.register_error_handler(404,staus_404)
     app.register_error_handler(401,staus_404)
     app.run()
