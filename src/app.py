@@ -18,6 +18,7 @@ def load_user(id):
 
 @app.route('/')
 def index():
+    print('Configracion:',config['production'])
     cursor=db.connection.cursor()
     #cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos')
     cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos ORDER BY fecha DESC')
@@ -301,7 +302,9 @@ def status_401(error):
 
 
 if __name__=='__main__':
-    app.config.from_object(config['production'])
+    app.config.from_object(config['development'])
     app.register_error_handler(404,staus_404)
     app.register_error_handler(401,staus_404)
     app.run()
+
+    
