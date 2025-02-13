@@ -25,5 +25,5 @@ class Production(Config):
 
 config={
     'development':Development,
-    'production':Production()
+    'production':Production
 }
