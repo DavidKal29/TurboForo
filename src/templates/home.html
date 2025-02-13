@@ -4,8 +4,25 @@
 
 {% block body %}
 
-<section class="principal">
-    Este es el home
+<section id="principal">
+    
+    {% if hilos %}
+    <div id="hilera">
+        <div id="cabecera-hilos">
+            <i class="fa-brands fa-forumbee"></i>
+            <span>Hilos</span>
+            
+        </div>
+    
+        {% for hilo in hilos %}
+        <div class="hilo">
+            <span>{{hilo['categoria'].capitalize()}}</span>
+            <a href="/foro/{{hilo['id']}}">{{hilo['titulo'].upper()}}</a>
+            <span>Mensajes:{{hilo['mensajes']}}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </section>
 
 {% endblock %}

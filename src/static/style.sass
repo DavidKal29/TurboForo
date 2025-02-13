@@ -42,9 +42,6 @@ body
     flex-direction: column
     padding: 10px
     
-
-    
-    
     #hilera
         display: flex
         justify-content: center
@@ -152,52 +149,52 @@ body
 
 
     
-form
-    width: 45vh
-    padding: 20px
-    height: 70vh
-    border-radius: 5px
-    background-color: white
-    display: flex
-    justify-content: center
-    align-items: center
-    flex-direction: column
-    margin-top: 50px
-    margin-left: 75vh
-    gap: 20px
-    div
+    #form
+        width: 45vh
+        padding: 20px
+        height: 70vh
+        border-radius: 5px
+        background-color: white
         display: flex
         justify-content: center
-        align-items: start
+        align-items: center
         flex-direction: column
-        label
+        margin-top: 50px
+        
+        gap: 20px
+        div
+            display: flex
+            justify-content: center
+            align-items: start
+            flex-direction: column
+            label
+                font-weight: bold
+            input
+                border-radius: 5px
+                padding: 8px 16px
+                border: none
+                background-color: #e0e0e0 
+            select
+                border-radius: 5px
+                padding: 8px 16px
+                border: none
+                background-color: #e0e0e0 
+        button
+            border-radius: 5px
+            padding: 8px 16px
+            border: none
             font-weight: bold
-        input
-            border-radius: 5px
-            padding: 8px 16px
-            border: none
-            background-color: #e0e0e0 
-        select
-            border-radius: 5px
-            padding: 8px 16px
-            border: none
-            background-color: #e0e0e0 
-    button
-        border-radius: 5px
-        padding: 8px 16px
-        border: none
-        font-weight: bold
-        cursor: pointer
-        background-color: #123456
-        color: white
-        a
+            cursor: pointer
+            background-color: #123456
             color: white
-            text-decoration: none
-    span
-        font-weight: bold
-        a
-            text-decoration: none
-            color: #123456
+            a
+                color: white
+                text-decoration: none
+        span
+            font-weight: bold
+            a
+                text-decoration: none
+                color: #123456
         
     
 #cabeza_foro
@@ -207,6 +204,25 @@ form
     flex-direction: column
     margin-top: 30px
     gap: 20px
+
+    .escribirMensaje
+        input
+            padding: 8px 275px
+            border-radius: 5px
+            border: none
+        button
+            border-radius: 5px
+            padding: 8px 16px
+            border: none
+            font-weight: bold
+            cursor: pointer
+            background-color: #123456
+            color: white
+            a
+                color: white
+                text-decoration: none
+
+
     
     #foro_cabecera
         background-color: white
@@ -226,6 +242,7 @@ form
         flex-direction: column
         padding: 20px
         gap: 30px
+        word-wrap: break-word
         .cabeza
             display: flex
             justify-content: center
@@ -247,6 +264,37 @@ form
                     font-size: 20px
         hr
             width: 100%
+        
+                
+    
+#seccion_error
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    height: 100vh
+    gap: 20px
+    
+    #campo_error
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+        img
+            width: 50%
+    #boton
+        border-radius: 5px
+        padding: 8px 16px
+        border: none
+        font-weight: bold
+        cursor: pointer
+        background-color: #123456
+        color: white
+        a
+            color: white
+            text-decoration: none
+
+        
         
             
 

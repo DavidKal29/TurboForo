@@ -163,8 +163,7 @@ body {
 #principal #perfil #botones #logout {
   background-color: #123456;
 }
-
-form {
+#principal #form {
   width: 45vh;
   padding: 20px;
   height: 70vh;
@@ -175,31 +174,30 @@ form {
   align-items: center;
   flex-direction: column;
   margin-top: 50px;
-  margin-left: 75vh;
   gap: 20px;
 }
-form div {
+#principal #form div {
   display: flex;
   justify-content: center;
   align-items: start;
   flex-direction: column;
 }
-form div label {
+#principal #form div label {
   font-weight: bold;
 }
-form div input {
+#principal #form div input {
   border-radius: 5px;
   padding: 8px 16px;
   border: none;
   background-color: #e0e0e0;
 }
-form div select {
+#principal #form div select {
   border-radius: 5px;
   padding: 8px 16px;
   border: none;
   background-color: #e0e0e0;
 }
-form button {
+#principal #form button {
   border-radius: 5px;
   padding: 8px 16px;
   border: none;
@@ -208,14 +206,14 @@ form button {
   background-color: #123456;
   color: white;
 }
-form button a {
+#principal #form button a {
   color: white;
   text-decoration: none;
 }
-form span {
+#principal #form span {
   font-weight: bold;
 }
-form span a {
+#principal #form span a {
   text-decoration: none;
   color: #123456;
 }
@@ -227,6 +225,24 @@ form span a {
   flex-direction: column;
   margin-top: 30px;
   gap: 20px;
+}
+#cabeza_foro .escribirMensaje input {
+  padding: 8px 275px;
+  border-radius: 5px;
+  border: none;
+}
+#cabeza_foro .escribirMensaje button {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #123456;
+  color: white;
+}
+#cabeza_foro .escribirMensaje button a {
+  color: white;
+  text-decoration: none;
 }
 #cabeza_foro #foro_cabecera {
   background-color: white;
@@ -247,6 +263,7 @@ form span a {
   flex-direction: column;
   padding: 20px;
   gap: 30px;
+  word-wrap: break-word;
 }
 #cabeza_foro .foro_mensaje .cabeza {
   display: flex;
@@ -274,4 +291,35 @@ form span a {
 }
 #cabeza_foro .foro_mensaje hr {
   width: 100%;
+}
+
+#seccion_error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  gap: 20px;
+}
+#seccion_error #campo_error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#seccion_error #campo_error img {
+  width: 50%;
+}
+#seccion_error #boton {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #123456;
+  color: white;
+}
+#seccion_error #boton a {
+  color: white;
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */

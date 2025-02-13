@@ -25,7 +25,8 @@ CREATE TABLE hilos (
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_user INT UNSIGNED,
     FOREIGN KEY (id_user) REFERENCES users(id),
-    categoria VARCHAR(100) NOT NULL
+    categoria VARCHAR(100) NOT NULL,
+    mensajes INT UNSIGNED
 );
 
 CREATE TABLE mensajes(

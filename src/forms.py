@@ -2,12 +2,19 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,EmailField,PasswordField,SubmitField,SelectField
 from wtforms.validators import ValidationError,DataRequired,Length,EqualTo,Email
 
+def no_palabra(form,field):
+    if not field.data.isalpha():
+        raise ValidationError('Debes usar palabras en el usuario')
+    
+
+
 
 class Persona(FlaskForm):
 
     username=StringField('username',validators=[
         DataRequired(),
-        Length(min=5,max=20)
+        Length(min=5,max=20),
+        no_palabra
     ])
 
     email=EmailField('email',validators=[
@@ -53,7 +60,8 @@ class Inicar(FlaskForm):
 class Perfil(FlaskForm):
     username=StringField('username',validators=[
         DataRequired(),
-        Length(min=5,max=20)
+        Length(min=5,max=20),
+        no_palabra
     ])
 
     email=EmailField('email',validators=[
@@ -76,7 +84,7 @@ class Hilo(FlaskForm):
 
     mensaje=StringField('mensaje',validators=[
         DataRequired(),
-        Length(max=255)
+        Length(max=40)
     ])
 
     categoria=SelectField('categoria',validators=[DataRequired()],choices=[
@@ -87,6 +95,10 @@ class Hilo(FlaskForm):
         ('deporte','deporte')
      ])
 
+class Mensaje(FlaskForm):
+    mensaje=StringField('mensaje',validators=[
+        Length(min=10,max=60)
+    ])
 
    
     

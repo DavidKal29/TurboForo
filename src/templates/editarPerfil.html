@@ -4,9 +4,9 @@
 
 {% block body %}
 
-<section class="principal">
+<section id="principal">
     
-    <form action="/perfil/edit/{{current_user.id}}" method="post">
+    <form id="form" action="/perfil/edit/{{current_user.id}}" method="post">
         <h1>Edit</h1>
         {% with messages=get_flashed_messages() %}
         {% if messages %}

@@ -5,7 +5,16 @@
 {% block body %}
 
 <section class="principal">
+    
     <div id="cabeza_foro">
+        {% if current_user.id %}
+        <form action="/foro/{{datos_hilo['id']}}"  method="post" class="escribirMensaje">
+            {{form.mensaje(placeholder='Escribe un mensaje')}}
+            <button type="submit">Enviar</button>
+        </form>
+        {% endif %}
+
+        
         <div id="foro_cabecera">
             <h1>{{datos_hilo['titulo']}}</h1>
         </div>
@@ -15,7 +24,7 @@
             <div class="cabeza">
                 <div class="info">
                     <div class="imagen">
-                        <img src="{{msg['image']}}" alt="">
+                        <img src="{{msg['image']}}" alt="" onerror="this.onerror=null; this.src='https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png';">
                     </div>
                     <h4>{{msg['username']}}</h4>
                 </div>

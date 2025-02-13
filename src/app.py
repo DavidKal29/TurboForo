@@ -2,7 +2,7 @@ from flask import Flask,render_template,redirect,request,url_for,flash
 from flask_login import login_user,logout_user,login_required,LoginManager,current_user
 from config import config
 from flask_mysqldb import MySQL
-from forms import Persona,Inicar,Perfil,Hilo
+from forms import Persona,Inicar,Perfil,Hilo,Mensaje
 from models.entities.User import User
 from models.ModelUser import ModelUser
 
@@ -18,9 +18,18 @@ def load_user(id):
 
 @app.route('/')
 def index():
+    cursor=db.connection.cursor()
+    #cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos')
+    cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos ORDER BY fecha DESC')
+    rows=cursor.fetchall()
 
-    return render_template('home.html')
-
+    hilos=[]
+    for row in rows:
+        hilo={'id':row[0],'titulo':row[1],'categoria':row[2],'mensajes':row[3]}
+        hilos.append(hilo)
+    print(hilos)
+    
+    return render_template('home.html',hilos=hilos)
 @app.route('/login',methods=['POST','GET'])
 def login():
     form=Inicar()
@@ -142,11 +151,8 @@ def editar_perfil(id):
             flash('Username or Email exists')
             return redirect(url_for('perfil'))
 
-        
-
-
-
 @app.route('/perfil/crearHilo',methods=['GET','POST'])
+@login_required
 def crearHilo():
     form=Hilo()
     if request.method=='GET':
@@ -183,6 +189,7 @@ def crearHilo():
 
 
 @app.route('/perfil/verHilos',methods=['GET'])
+@login_required
 def verHilos():
     cursor=db.connection.cursor()
     cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos WHERE id_user=%s',(current_user.id,))
@@ -197,69 +204,84 @@ def verHilos():
     return render_template('verHilos.html',hilos=hilos)
 
 @app.route('/perfil/delete/<id>')
+@login_required
 def deletear_hilo(id):
     cursor=db.connection.cursor()
 
-    cursor.execute('SELECT COUNT(*) FROM mensajes WHERE id_user=%s and id_hilo=%s',(current_user.id,id))
-    cantidad=cursor.fetchone()
-    print('Tuple',cantidad)
-    cantidad=cantidad[0]
-    print('Cantidad:',cantidad)
+    cursor.execute('SELECT id_user FROM mensajes WHERE id_hilo=%s',(id,))
+    data=cursor.fetchall()
+    print('data:',data)
 
-    cursor.execute('UPDATE datos SET mensajes=mensajes-%s, hilos=hilos-%s WHERE id_user=%s',(cantidad,cantidad,current_user.id))
+    for id_user in data:
+        print('id_user:',id_user[0])
+        cursor.execute('UPDATE datos SET mensajes=mensajes-1 WHERE id_user=%s',(id_user[0],))
+        db.connection.commit()
+        cursor.execute('DELETE FROM mensajes WHERE id_hilo=%s and id_user=%s ',(id,id_user[0]))
+        db.connection.commit()
 
-    cursor.execute('DELETE FROM mensajes WHERE id_hilo=%s',(id,))
-    cursor.execute('DELETE FROM hilos WHERE id=%s',(id,))
+    cursor.execute('DELETE FROM mensajes WHERE id_hilo=%s and id_user=%s',(id,current_user.id))
+    db.connection.commit()
     
+    cursor.execute('DELETE FROM hilos WHERE id=%s',(id,))
+    db.connection.commit()
 
+    cursor.execute('UPDATE datos SET hilos=hilos-1 WHERE id_user=%s',(current_user.id,))
     db.connection.commit()
 
     return redirect(url_for('verHilos'))
 
-@app.route('/foro/<id>')
+@app.route('/foro/<id>',methods=['POST','GET'])
 def foroVista(id):
-    cursor=db.connection.cursor()
-    cursor.execute('SELECT titulo,fecha FROM hilos WHERE id=%s',(id,))
-    data=cursor.fetchone()
-    
-    datos_hilo={'titulo':data[0],'fecha':data[1]}
-    print(datos_hilo)
+    try:
+        cursor=db.connection.cursor()
+        if request.method=='POST':
+        
+            mensaje=request.form.get('mensaje')
+            mensaje=mensaje.strip()
+
+            cursor.execute('INSERT INTO mensajes (contenido,id_user,id_hilo) VALUES (%s,%s,%s)',(mensaje,current_user.id,id))
+            db.connection.commit()
+
+            cursor.execute('UPDATE datos SET mensajes=mensajes+1 WHERE id_user=%s',(current_user.id,))
+            db.connection.commit()
+
+            cursor.execute('UPDATE hilos SET mensajes=mensajes+1 WHERE id=%s',(id,))
+            db.connection.commit()
+
+        
+        cursor.execute('SELECT id,titulo,fecha,id_user FROM hilos WHERE id=%s',(id,))
+        data=cursor.fetchone()
+        print(data)
+            
+        datos_hilo={'id':data[0],'titulo':data[1],'fecha':data[2],'id_user':data[3]}
+        print(datos_hilo)
+
+        form=Mensaje()
 
 
 
-    cursor.execute('SELECT contenido,id_user,fecha FROM mensajes WHERE id_hilo=%s',(id,))
-    data=cursor.fetchall()
+        cursor.execute('SELECT contenido,id_user,fecha FROM mensajes WHERE id_hilo=%s',(id,))
+        data=cursor.fetchall()
 
-    mensajes=[]
-    for dato in data:
-        contenido=dato[0]
-        id_user=dato[1]
-        fecha=dato[2]
+        mensajes=[]
+        for dato in data:
+            contenido=dato[0]
+            id_user=dato[1]
+            fecha=dato[2]
 
-        cursor.execute('SELECT username, image FROM users WHERE id=%s',(id_user,))
-        row=cursor.fetchone()
-        username=row[0]
-        image=row[1]
+            cursor.execute('SELECT username, image FROM users WHERE id=%s',(id_user,))
+            row=cursor.fetchone()
+            username=row[0]
+            image=row[1]
 
-        objeto={'contenido':contenido,'fecha':fecha,'username':username,'image':image}
+            objeto={'contenido':contenido,'fecha':fecha,'username':username,'image':image}
 
-        mensajes.append(objeto)
-    
-    print(mensajes)
-
-
-
-
-
-    return render_template('foroVista.html',datos_hilo=datos_hilo,mensajes=mensajes)
-
-
-
-
-
-
-
-
+            mensajes.append(objeto)
+    except Exception as e:
+        print('Error:',e)
+        return redirect(url_for('index'))
+        
+    return render_template('foroVista.html',datos_hilo=datos_hilo,mensajes=mensajes,form=form)
 
 
 
@@ -270,6 +292,16 @@ def logout():
     return redirect(url_for('index'))
 
 
+
+def staus_404(error):
+    return render_template('404.html')
+
+def status_401(error):
+    return redirect(url_for('login'))
+
+
 if __name__=='__main__':
-    app.config.from_object(config['development'])
+    app.config.from_object(config['production'])
+    app.register_error_handler(404,staus_404)
+    app.register_error_handler(401,staus_404)
     app.run()
