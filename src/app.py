@@ -6,8 +6,25 @@ from forms import Persona,Inicar,Perfil,Hilo,Mensaje
 from models.entities.User import User
 from models.ModelUser import ModelUser
 
+
 app=Flask(__name__)
+
+
 db=MySQL(app)
+
+
+with app.app_context():
+    try:
+        connection = db.connection
+        cursor = connection.cursor()
+        cursor.execute('SELECT 1')
+        print("Conexión a la base de datos exitosa")
+        cursor.close()
+    except Exception as e:
+        print("Error de conexión a la base de datos:", e)
+
+
+
 
 login_manager=LoginManager(app)
 
@@ -19,19 +36,21 @@ def load_user(id):
 @app.route('/')
 def index():
     try:
-        cursor=db.connection.cursor()
-        cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos ORDER BY fecha DESC')
-        rows=cursor.fetchall()
+        # cursor=db.connection.cursor()
+        # cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos ORDER BY fecha DESC')
+        # rows=cursor.fetchall()
 
-        hilos=[]
-        for row in rows:
-            hilo={'id':row[0],'titulo':row[1],'categoria':row[2],'mensajes':row[3]}
-            hilos.append(hilo)
-        print(hilos)
+        # hilos=[]
+        # for row in rows:
+        #     hilo={'id':row[0],'titulo':row[1],'categoria':row[2],'mensajes':row[3]}
+        #     hilos.append(hilo)
+        # print(hilos)
 
-        cursor.close()
+        # cursor.close()
         
-        return render_template('home.html',hilos=hilos)
+        # return render_template('home.html',hilos=hilos)
+
+        return render_template('home.html')
 
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
