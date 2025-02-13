@@ -22,8 +22,10 @@ class ModelUser():
 
                 logged_user=User(id,username,email,image,password)
 
+                cursor.close()
                 return logged_user
             else:
+                cursor.close()
                 return None
         
         
@@ -61,9 +63,10 @@ class ModelUser():
                 cursor.execute('INSERT INTO datos (hilos,mensajes,id_user) VALUES (%s,%s,%s)',(0,0,id))
                 db.connection.commit()
 
-
+                cursor.close()
                 return logged_user
             else:
+                cursor.close()
                 return None
 
         except Exception as error:
@@ -88,9 +91,13 @@ class ModelUser():
                 password=None
                 logged_user=User(id,username,email,image,password)
 
+                cursor.close()
+
                 return logged_user
             else:
+                cursor.close()
                 return None
+                
         except Exception as error:
             print(error)
             return None
