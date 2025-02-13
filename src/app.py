@@ -36,6 +36,8 @@ def index():
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
+
 @app.route('/login',methods=['POST','GET'])
 def login():
     try:
@@ -72,6 +74,7 @@ def login():
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
     
 
@@ -113,6 +116,7 @@ def register():
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
 
 
@@ -136,6 +140,7 @@ def perfil():
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
 
 
@@ -174,6 +179,7 @@ def editar_perfil(id):
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
 @app.route('/perfil/crearHilo',methods=['GET','POST'])
 @login_required
@@ -214,6 +220,7 @@ def crearHilo():
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
 
 
@@ -237,6 +244,7 @@ def verHilos():
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
 @app.route('/perfil/delete/<id>')
 @login_required
@@ -270,6 +278,7 @@ def deletear_hilo(id):
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
         print(e)
+        return redirect(url_for('index'))
 
 @app.route('/foro/<id>',methods=['POST','GET'])
 def foroVista(id):
