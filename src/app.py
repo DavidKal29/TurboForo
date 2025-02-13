@@ -33,21 +33,19 @@ def load_user(id):
 @app.route('/')
 def index():
     try:
-        # cursor=db.connection.cursor()
-        # cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos ORDER BY fecha DESC')
-        # rows=cursor.fetchall()
+        cursor=db.connection.cursor()
+        cursor.execute('SELECT id, titulo, categoria,mensajes FROM hilos ORDER BY fecha DESC')
+        rows=cursor.fetchall()
 
-        # hilos=[]
-        # for row in rows:
-        #     hilo={'id':row[0],'titulo':row[1],'categoria':row[2],'mensajes':row[3]}
-        #     hilos.append(hilo)
-        # print(hilos)
+        hilos=[]
+        for row in rows:
+            hilo={'id':row[0],'titulo':row[1],'categoria':row[2],'mensajes':row[3]}
+            hilos.append(hilo)
+        print(hilos)
 
-        # cursor.close()
+        cursor.close()
         
-        # return render_template('home.html',hilos=hilos)
-
-        return render_template('home.html')
+        return render_template('home.html',hilos=hilos)
 
     except Exception as e:
         print('ERROR DETECTADO EN LA CONSOLA')
