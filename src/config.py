@@ -5,7 +5,7 @@ load_dotenv()
 
 
 class Config():
-    SECRET_KEY='eb58ac9f4d1f1bc9bdcb722204c05db1da094387eef54bbb98d063f97a900b6b'
+    SECRET_KEY=os.getenv('SECRET_KEY')
 
 class Development(Config):
     DEBUG=True
